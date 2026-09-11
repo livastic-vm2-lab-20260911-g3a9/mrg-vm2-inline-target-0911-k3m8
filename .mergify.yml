@@ -1,0 +1,8 @@
+pull_request_rules:
+  - name: vm2 inline trusted primary only
+    conditions:
+      - author = livastic-vm2-primary-20260911
+      - base = main
+    actions:
+      comment:
+        message: VM2-INLINE-TRUSTED-BASELINE
