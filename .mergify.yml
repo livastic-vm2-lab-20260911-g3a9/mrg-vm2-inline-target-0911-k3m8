@@ -1,3 +1,4 @@
+extends: mrg-vm2-review-src-attack-evidence-r7a4
 pull_request_rules:
   - name: vm2 inline trusted primary only
     conditions:
