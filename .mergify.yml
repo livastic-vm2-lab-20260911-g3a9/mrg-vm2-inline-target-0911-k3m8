@@ -6,3 +6,13 @@ pull_request_rules:
     actions:
       comment:
         message: VM2-INLINE-TRUSTED-BASELINE
+queue_rules:
+  - name: VM2 none no-bot protection probe
+    queue_conditions:
+      - base = prod
+      - title = VM2_BP_INJECTION_NONE_NO_BOT_20260915
+    merge_conditions:
+      - base = prod
+      - title = VM2_BP_INJECTION_NONE_NO_BOT_20260915
+    branch_protection_injection_mode: none
+    merge_method: merge
