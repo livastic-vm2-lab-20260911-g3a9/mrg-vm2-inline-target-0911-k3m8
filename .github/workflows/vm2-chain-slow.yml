@@ -1,0 +1,20 @@
+name: VM2 CI-key Sentinel Chain Slow Check
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  slow:
+    name: vm2-chain-slow-check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Controlled slow speculative check
+        shell: bash
+        run: |
+          echo "head_ref=${GITHUB_HEAD_REF}"
+          if [[ "$GITHUB_HEAD_REF" == mergify/merge-queue/* ]]; then
+            echo VM2_CHAIN_SPECULATIVE_SLOW
+            sleep 240
+          else
+            echo VM2_CHAIN_SOURCE_FAST
+          fi
