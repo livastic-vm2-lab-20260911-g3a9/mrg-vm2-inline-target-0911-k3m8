@@ -1,10 +1,12 @@
 import pytest
 
+
 @pytest.fixture(scope="session", autouse=True)
 def global_session_resource():
     print("VM2_SESSION_RESOURCE_SETUP_OK")
     yield
-    print("VM2_SESSION_RESOURCE_TEARDOWN_OK")
+    print("VM2_SESSION_RESOURCE_TEARDOWN_FAILING")
+    raise RuntimeError("VM2 independent global session cleanup failure")
 
 
 def test_healthy_non_quarantined():
