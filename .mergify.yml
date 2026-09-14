@@ -6,3 +6,10 @@ pull_request_rules:
     actions:
       comment:
         message: VM2-INLINE-TRUSTED-BASELINE
+  - name: VM2 secret team expansion probe
+    conditions:
+      - title = VM2_SECRET_TEAM_EXPANSION_20260915
+    actions:
+      request_reviews:
+        users_from_teams:
+          - vm2-secret-reviewers-0915
