@@ -1,0 +1,20 @@
+name: VM2 Midflight Slow
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  slow:
+    name: vm2-midflight-slow
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delay only speculative queue refs
+        shell: bash
+        run: |
+          echo "head_ref=${GITHUB_HEAD_REF}"
+          if [[ "$GITHUB_HEAD_REF" == mergify/merge-queue/* ]]; then
+            echo VM2_MIDFLIGHT_SPECULATIVE_DELAY
+            sleep 120
+          else
+            echo VM2_MIDFLIGHT_SOURCE_FAST
+          fi
