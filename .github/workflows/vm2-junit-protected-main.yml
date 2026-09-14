@@ -1,0 +1,39 @@
+name: VM2 public protected-main JUnit guard
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  required-ci:
+    name: VM2 required JUnit guard
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run repository test driver
+        id: tests
+        continue-on-error: true
+        run: bash ci/run-tests.sh
+
+      - name: Mergify verdict
+        id: mergify
+        uses: Mergifyio/gha-mergify-ci@v25
+        with:
+          action: junit-process
+          token: ${{ secrets.VM2_MERGIFY_SILENT_FAILURE_KEY }}
+          report_path: reports/junit.xml
+          test_step_outcome: ${{ steps.tests.outcome }}
+          mergify_cli_version: 2026.9.10.1
+
+      - name: Record discriminator state
+        if: always()
+        run: |
+          echo "test outcome=${{ steps.tests.outcome }}"
+          echo "mergify outcome=${{ steps.mergify.outcome }}"
+          test "${{ steps.mergify.outcome }}" = "success"
