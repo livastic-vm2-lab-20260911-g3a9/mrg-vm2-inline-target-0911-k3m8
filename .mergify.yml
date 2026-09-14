@@ -6,3 +6,20 @@ pull_request_rules:
     actions:
       comment:
         message: VM2-INLINE-TRUSTED-BASELINE
+
+  - name: VM2 queue-position update race probe
+    conditions:
+      - title = VM2_QUEUE_UPDATE_RACE_20260915
+      - base = main
+    actions:
+      queue:
+        name: vm2-queue-update-race
+      update:
+
+queue_rules:
+  - name: vm2-queue-update-race
+    batch_size: 1
+    queue_conditions:
+      - title = VM2_QUEUE_UPDATE_RACE_20260915
+    merge_conditions:
+      - check-success = vm2-never-pass-0915
