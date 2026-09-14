@@ -4,7 +4,7 @@ merge_queue:
 scopes:
   source:
     manual:
-  default_capacity: 1
+  default_capacity: 2
 queue_rules:
   - name: vm2-ci-key-default-sentinel-chain
     batch_size: 1
