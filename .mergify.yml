@@ -1,6 +1,9 @@
 merge_queue:
   mode: parallel
   max_parallel_checks: 1
+scopes:
+  source:
+    manual:
 queue_rules:
   - name: VM2 queue-mode midflight ruleset strengthening
     queue_conditions:
