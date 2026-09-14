@@ -1,6 +1,6 @@
 merge_queue:
   mode: parallel
-  max_parallel_checks: 2
+  max_parallel_checks: 3
 scopes:
   source:
     manual:
