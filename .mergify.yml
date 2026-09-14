@@ -1,15 +1,8 @@
-merge_queue:
-  mode: parallel
-  max_parallel_checks: 1
-scopes:
-  source:
-    manual:
-queue_rules:
-  - name: VM2 queue-mode midflight ruleset strengthening
-    queue_conditions:
-      - base = vm2-midflight-base-0915
-      - title = VM2_QUEUE_MODE_MIDFLIGHT_20260915
-    merge_conditions:
-      - check-success = @github-actions/vm2-midflight-slow
-    branch_protection_injection_mode: queue
-    merge_method: merge
+pull_request_rules:
+  - name: vm2 inline trusted primary only
+    conditions:
+      - author = livastic-vm2-primary-20260911
+      - base = main
+    actions:
+      comment:
+        message: VM2-INLINE-TRUSTED-BASELINE
