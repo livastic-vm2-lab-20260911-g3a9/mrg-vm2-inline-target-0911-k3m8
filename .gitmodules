@@ -1,3 +1,4 @@
 [submodule "security-lib"]
 	path = security-lib
 	url = https://github.com/livastic-vm2-lab-20260911-g3a9/vm2-submodule-scope-dep-0915.git
+	ignore = all
