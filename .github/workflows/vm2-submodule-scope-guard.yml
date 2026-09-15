@@ -1,0 +1,31 @@
+name: VM2 Submodule Scope Guard
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  guard:
+    name: vm2-security-scope-guard
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Detect Mergify scopes
+        id: scopes
+        uses: Mergifyio/gha-mergify-ci@v25
+        with:
+          action: scopes
+          mergify_cli_version: '2026.9.10.1'
+      - name: Record scope decision
+        env:
+          SCOPES: ${{ steps.scopes.outputs.scopes }}
+        run: echo "scopes=$SCOPES"
+      - name: Security submodule guard
+        if: ${{ fromJSON(steps.scopes.outputs.scopes).security == true }}
+        env:
+          SAFE_SUBMODULE_SHA: '9a7026b1a205484518467d2924ba9e2530135dbe'
+        run: |
+          actual=$(git rev-parse HEAD:security-lib)
+          echo "actual=$actual expected=$SAFE_SUBMODULE_SHA"
+          test "$actual" = "$SAFE_SUBMODULE_SHA"

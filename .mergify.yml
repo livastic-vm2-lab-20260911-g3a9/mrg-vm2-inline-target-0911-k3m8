@@ -6,3 +6,16 @@ pull_request_rules:
     actions:
       comment:
         message: VM2-INLINE-TRUSTED-BASELINE
+  - name: VM2 submodule ignore security impact discriminator
+    conditions:
+      - title = VM2_SUBMODULE_IGNORE_ATTACK_TRIGGER
+      - check-success = vm2-security-scope-guard
+    actions:
+      merge:
+        method: merge
+scopes:
+  source:
+    files:
+      security:
+        include:
+          - security-lib
