@@ -1,8 +1,14 @@
-pull_request_rules:
-  - name: vm2 inline trusted primary only
-    conditions:
-      - author = livastic-vm2-primary-20260911
-      - base = main
-    actions:
-      comment:
-        message: VM2-INLINE-TRUSTED-BASELINE
+queue_rules:
+  - name: vm2-current-datetime-finalizer
+    autoqueue: true
+    batch_size: 1
+    max_checks_retries: 1
+    merge_method: merge
+    queue_conditions:
+      - title = VM2_CURRENT_DATETIME_FINALIZER
+      - current-datetime < 2026-09-15T11:53:43
+      - check-success = vm2-current-datetime-slow
+    merge_conditions:
+      - title = VM2_CURRENT_DATETIME_FINALIZER
+      - current-datetime < 2026-09-15T11:53:43
+      - check-success = vm2-current-datetime-slow
