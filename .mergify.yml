@@ -1,8 +1,8 @@
-pull_request_rules:
-  - name: vm2 inline trusted primary only
-    conditions:
-      - author = livastic-vm2-primary-20260911
-      - base = main
-    actions:
-      comment:
-        message: VM2-INLINE-TRUSTED-BASELINE
+merge_protections_settings:
+  auto_merge_conditions: true
+merge_protections:
+  - name: VM2 native CODEOWNERS 3000-file completeness discriminator
+    if:
+      - title = VM2_CODEOWNERS_3001_EXTERNAL
+    success_conditions:
+      - "#files = 3001"
