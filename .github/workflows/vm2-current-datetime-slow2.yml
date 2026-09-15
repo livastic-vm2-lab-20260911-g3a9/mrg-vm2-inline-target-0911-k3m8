@@ -1,0 +1,21 @@
+name: VM2 Current Datetime Slow 2
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  slow:
+    name: vm2-current-datetime-slow2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delay only Mergify speculative queue refs
+        shell: bash
+        run: |
+          echo "head_ref=${GITHUB_HEAD_REF}"
+          if [[ "$GITHUB_HEAD_REF" == mergify/merge-queue/* ]]; then
+            echo VM2_CURRENT_DATETIME_SPECULATIVE_DELAY_2
+            sleep 270
+          else
+            echo VM2_CURRENT_DATETIME_SOURCE_FAST_2
+          fi
