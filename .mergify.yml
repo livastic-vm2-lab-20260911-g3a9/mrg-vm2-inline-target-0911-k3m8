@@ -1,3 +1,11 @@
+pull_request_rules:
+  - name: VM2 controlled non-CODEOWNER bot approval fixture
+    conditions:
+      - title = HOLD_VM2_CODEOWNERS_3001_EXTERNAL
+    actions:
+      review:
+        type: APPROVE
+        message: VM2 controlled general approval fixture
 merge_protections_settings:
   auto_merge_conditions: true
 merge_protections:
