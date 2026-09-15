@@ -1,8 +1,20 @@
 pull_request_rules:
-  - name: vm2 inline trusted primary only
+  - name: VM2 low-priv sender creates marker only
     conditions:
-      - author = livastic-vm2-primary-20260911
-      - base = main
+      - author = livastic-vm2-secondary-20260911
+      - sender = livastic-vm2-secondary-20260911
+      - -label = vm2-sender-launder-marker-0915
     actions:
-      comment:
-        message: VM2-INLINE-TRUSTED-BASELINE
+      label:
+        add:
+          - vm2-sender-launder-marker-0915
+  - name: VM2 write-sender sentinel discriminator
+    conditions:
+      - author = livastic-vm2-secondary-20260911
+      - label = vm2-sender-launder-marker-0915
+      - -label = vm2-sender-launder-sentinel-0915
+      - sender-permission >= write
+    actions:
+      label:
+        add:
+          - vm2-sender-launder-sentinel-0915
