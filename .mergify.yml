@@ -1,8 +1,9 @@
 pull_request_rules:
-  - name: vm2 inline trusted primary only
+  - name: VM2 squash plus merge last-push TOCTOU probe
     conditions:
-      - author = livastic-vm2-primary-20260911
-      - base = main
+      - title = VM2_SQUASH_MERGE_LAST_PUSH_20260915
+      - base = vm2-squash-lastpush-base-0915
     actions:
-      comment:
-        message: VM2-INLINE-TRUSTED-BASELINE
+      squash:
+      merge:
+        method: merge
