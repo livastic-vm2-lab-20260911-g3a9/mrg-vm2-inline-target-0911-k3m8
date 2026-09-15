@@ -1,0 +1,14 @@
+name: VM2 Retarget Native Guard
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  guard:
+    name: VM2 retarget native guard
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "VM2_RETARGET_BASE=${{ github.base_ref }}"
+          echo "VM2_RETARGET_HEAD=${{ github.event.pull_request.head.sha }}"
+          echo "VM2_RETARGET_MERGE_SHA=${GITHUB_SHA}"
