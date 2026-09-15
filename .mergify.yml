@@ -1,7 +1,8 @@
 pull_request_rules:
-  - name: VM2 3001st-file CODEOWNERS impact extension
+  - name: vm2 inline trusted primary only
     conditions:
-      - title = VM2_CODEOWNERS_3001_TRIGGER
+      - author = livastic-vm2-primary-20260911
+      - base = main
     actions:
-      merge:
-        method: merge
+      comment:
+        message: VM2-INLINE-TRUSTED-BASELINE
