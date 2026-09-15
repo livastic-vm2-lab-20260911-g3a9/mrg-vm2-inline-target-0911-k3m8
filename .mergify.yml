@@ -1,8 +1,8 @@
-queue_rules:
-  - name: VM2 direct base push freshness probe
-    queue_conditions:
-      - base = vm2-directpush-base-0915
-      - title = VM2_DIRECT_BASE_PUSH_20260915
-    merge_conditions:
-      - check-success = @github-actions/vm2-base-delta-guard
-    merge_method: merge
+pull_request_rules:
+  - name: vm2 inline trusted primary only
+    conditions:
+      - author = livastic-vm2-primary-20260911
+      - base = main
+    actions:
+      comment:
+        message: VM2-INLINE-TRUSTED-BASELINE
