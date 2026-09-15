@@ -1,0 +1,20 @@
+name: VM2 Branch-Scoped Quarantine Guard
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  pytest-guard:
+    name: VM2 branch quarantine guard
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python -m pip install 'pytest==8.4.2' 'pytest-mergify==2026.9.11.1'
+      - name: Run branch-scoped quarantine guard
+        env:
+          CI: 'true'
+          MERGIFY_TOKEN: ${{ secrets.VM2_QPOLICY_KEY }}
+        run: pytest -q -s -rxX tests/test_vm2_branch_quarantine.py
