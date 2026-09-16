@@ -5,6 +5,7 @@ merge_queue:
 queue_rules:
   - name: VM2 midflight native protection hardening
     batch_size: 1
+    max_checks_retries: 1
     queue_conditions:
       - base = harden-base
       - check-success = vm2-midflight-hold
