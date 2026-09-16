@@ -1,0 +1,23 @@
+name: VM2 deprecated inplace two-step
+
+on:
+  pull_request:
+    branches:
+      - inplace-two-step-base
+
+permissions:
+  contents: read
+
+jobs:
+  source:
+    name: vm2-inplace-source
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo VM2_SOURCE_SUCCESS
+
+  queue-only:
+    name: vm2-inplace-queue-only
+    if: ${{ startsWith(github.head_ref, 'mergify/merge-queue/') }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo VM2_QUEUE_ONLY_SUCCESS

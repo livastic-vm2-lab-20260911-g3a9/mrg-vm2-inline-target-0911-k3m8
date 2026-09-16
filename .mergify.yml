@@ -3,19 +3,15 @@ merge_queue:
   max_parallel_checks: 1
 
 queue_rules:
-  - name: VM2 midflight native protection hardening
+  - name: VM2 deprecated inplace two-step discriminator
     batch_size: 1
-    max_checks_retries: 1
+    allow_inplace_checks: true
     queue_conditions:
-      - base = harden-base
-      - check-success = vm2-midflight-hold
+      - base = inplace-two-step-base
+      - check-success = vm2-inplace-source
     merge_conditions:
-      - check-success = vm2-midflight-hold
+      - check-success = vm2-inplace-queue-only
     merge_method: merge
-    merge_bot_account: livastic-vm2-primary-20260911
-    branch_protection_injection_mode: merge
-
-merge_protections_settings:
-  auto_merge_conditions: true
+    autoqueue: true
 
 pull_request_rules: []
