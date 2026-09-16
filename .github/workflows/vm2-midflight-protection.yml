@@ -24,12 +24,3 @@ jobs:
             sleep 75
             echo VM2_MIDFLIGHT_HOLD_END
           fi
-
-  native-security:
-    name: vm2-new-native-security
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deliberate current native-policy failure
-        run: |
-          echo VM2_NATIVE_SECURITY_FAILURE
-          exit 1
