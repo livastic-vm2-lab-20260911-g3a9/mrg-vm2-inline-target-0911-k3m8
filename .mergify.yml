@@ -1,8 +1,20 @@
-pull_request_rules:
-  - name: vm2 inline trusted primary only
-    conditions:
-      - author = livastic-vm2-primary-20260911
-      - base = main
-    actions:
-      comment:
-        message: VM2-INLINE-TRUSTED-BASELINE
+merge_queue:
+  mode: serial
+  max_parallel_checks: 1
+
+queue_rules:
+  - name: VM2 midflight native protection hardening
+    batch_size: 1
+    queue_conditions:
+      - base = harden-base
+      - check-success = vm2-midflight-hold
+    merge_conditions:
+      - check-success = vm2-midflight-hold
+    merge_method: merge
+    merge_bot_account: livastic-vm2-primary-20260911
+    branch_protection_injection_mode: merge
+
+merge_protections_settings:
+  auto_merge_conditions: true
+
+pull_request_rules: []

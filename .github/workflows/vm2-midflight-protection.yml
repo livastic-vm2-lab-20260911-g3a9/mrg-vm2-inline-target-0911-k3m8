@@ -1,0 +1,35 @@
+name: VM2 midflight protection checks
+
+on:
+  pull_request:
+    branches:
+      - harden-base
+
+permissions:
+  contents: read
+
+jobs:
+  hold:
+    name: vm2-midflight-hold
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Hold only speculative queue checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "head_ref=${{ github.head_ref }}"
+          if [[ "${{ github.head_ref }}" == mergify/merge-queue/* ]]; then
+            echo VM2_MIDFLIGHT_HOLD_START
+            sleep 75
+            echo VM2_MIDFLIGHT_HOLD_END
+          fi
+
+  native-security:
+    name: vm2-new-native-security
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deliberate current native-policy failure
+        run: |
+          echo VM2_NATIVE_SECURITY_FAILURE
+          exit 1
